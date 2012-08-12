@@ -9,7 +9,8 @@ public class MenuDetail {
     public KeyStroke keystroke;
     public boolean seperatorBelow;
 
-    public MenuDetail(String label, String name, char ac, KeyStroke keystroke, boolean sepBelow) {
+    public MenuDetail(String label, String name, char ac, KeyStroke keystroke,
+            boolean sepBelow) {
         this.menuName = label;
         this.actionLabel = name;
         this.ac = ac;

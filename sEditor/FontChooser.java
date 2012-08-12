@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,15 +26,16 @@ public class FontChooser extends JDialog {
 	private static boolean sessionActive = false;
 	String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment()
 			.getAvailableFontFamilyNames();
-	String[] fontSizes = {"9", "10", "11", "12", "14", "16", "18", "20", "22",
-			"24", "28", "36", "48", "72"};
+	String[] fontSizes = { "9", "10", "11", "12", "14", "16", "18", "20", "22",
+			"24", "28", "36", "48", "72" };
 	JPanel parentPanel;
-	JList<String> fontlist = new JList<String>(fonts);
-	JList<String> sizelist = new JList<String>(fontSizes);
+	JList fontlist = new JList(fonts);
+	JList sizelist = new JList(fontSizes);
 	JCheckBox bold = new JCheckBox("Bold");
 	JCheckBox italic = new JCheckBox("Italic");
 	JTextArea textArea;
 	Font font;
+
 	public FontChooser(Frame frame, JTextArea t) {
 		super(frame, "Choose Font", false);
 		if (sessionActive == true) {
@@ -91,7 +91,7 @@ public class FontChooser extends JDialog {
 		content.add(fontPanel);
 		content.add(right, BorderLayout.EAST);
 		final String fontName = font.getName();
-		ListModel<?> model = fontlist.getModel();
+		ListModel model = fontlist.getModel();
 		fontlist.clearSelection();
 		for (int i = 0; i < model.getSize(); i++) {
 			if (fontName.equals(model.getElementAt(i))) {

@@ -8,26 +8,19 @@ import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 
 /**
- * @author Siddhartha Sahu
- * 
- *         A simple text editor built using Swing technologies
+ * @author Siddhartha Sahu A simple text editor built using Swing technologies
  * 
  **/
-public class sEditor extends JFrame
-        implements
-        ActionListener {
-
+public class sEditor extends JFrame implements ActionListener {
     private static final long serialVersionUID = 8365312704591336309L;
     private int openDocumentsCounter = 0;
     private int sessionCounter = 0;
     /** The main panel containing the tabbed pane **/
     private JPanel mainEditorPanel = new JPanel();
-    ;
-	/** Tabbed pane for MDI interface **/
-	private JTabbedPane tabbedPane = new JTabbedPane();
-    ;
-	/** Container for the text area of all open tabs **/
-	private ArrayList<TextArea> textAreaContent = new ArrayList<TextArea>();
+    /** Tabbed pane for MDI interface **/
+    private JTabbedPane tabbedPane = new JTabbedPane();
+    /** Container for the text area of all open tabs **/
+    private ArrayList<TextArea> textAreaContent = new ArrayList<TextArea>();
     /** Container for the internal frame of all open tabs **/
     private ArrayList<JInternalFrame> internalFrames = new ArrayList<JInternalFrame>();
     private String lastOpenedDir = ".";
@@ -55,11 +48,11 @@ public class sEditor extends JFrame
         int width = (int) (screenSize.width / 1.2);
         int height = (int) (screenSize.height / 1.2);
         setSize(width, height);
-        setLocation((screenSize.width / 2) - (width / 2), (screenSize.height / 2) - (height / 2));
+        setLocation((screenSize.width / 2) - (width / 2),
+                (screenSize.height / 2) - (height / 2));
         createMenuBar();
         initiateEditor();
         addWindowListener(new WindowAdapter() {
-
             @Override
             public void windowClosing(WindowEvent e) {
                 exitEditor();
@@ -75,7 +68,6 @@ public class sEditor extends JFrame
         JMenuBar menubar = new JMenuBar();
         JMenu menu = null;
         JMenuItem mi = null;
-
         menu = new JMenu("File");
         menu.setMnemonic('f');
         ArrayList<MenuDetail> file = new ArrayList<MenuDetail>();
@@ -85,8 +77,9 @@ public class sEditor extends JFrame
                 KeyEvent.VK_O, InputEvent.CTRL_MASK), false));
         file.add(new MenuDetail("Save", "save", 's', KeyStroke.getKeyStroke(
                 KeyEvent.VK_S, InputEvent.CTRL_MASK), false));
-        file.add(new MenuDetail("Save As...", "saveas", 'a', KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK
-                | InputEvent.SHIFT_MASK), true));
+        file.add(new MenuDetail("Save As...", "saveas", 'a', KeyStroke
+                .getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK
+                        | InputEvent.SHIFT_MASK), true));
         file.add(new MenuDetail("Close", "close", 'c', KeyStroke.getKeyStroke(
                 KeyEvent.VK_W, InputEvent.CTRL_MASK), false));
         file.add(new MenuDetail("Exit", "exit", 'x', KeyStroke.getKeyStroke(
@@ -102,14 +95,15 @@ public class sEditor extends JFrame
             }
         }
         menubar.add(menu);
-
         menu = new JMenu("Documents");
         menu.setMnemonic('d');
         ArrayList<MenuDetail> doc = new ArrayList<MenuDetail>();
-        doc.add(new MenuDetail("Save All", "saveall", 's', KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK
-                | InputEvent.SHIFT_MASK), false));
-        doc.add(new MenuDetail("Close All", "closeall", 'c', KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK
-                | InputEvent.SHIFT_MASK), false));
+        doc.add(new MenuDetail("Save All", "saveall", 's', KeyStroke
+                .getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK
+                        | InputEvent.SHIFT_MASK), false));
+        doc.add(new MenuDetail("Close All", "closeall", 'c', KeyStroke
+                .getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK
+                        | InputEvent.SHIFT_MASK), false));
         doc.add(new MenuDetail("Close All but active document", "closeallba",
                 'l', null, false));
         for (MenuDetail m : doc) {
@@ -123,7 +117,6 @@ public class sEditor extends JFrame
             }
         }
         menubar.add(menu);
-
         menu = new JMenu("Edit");
         menu.setMnemonic('e');
         ArrayList<MenuDetail> edit = new ArrayList<MenuDetail>();
@@ -137,9 +130,11 @@ public class sEditor extends JFrame
                 KeyEvent.VK_C, InputEvent.CTRL_MASK), false));
         edit.add(new MenuDetail("Paste", "paste", 'p', KeyStroke.getKeyStroke(
                 KeyEvent.VK_V, InputEvent.CTRL_MASK), false));
-        edit.add(new MenuDetail("Select All", "selectall", 's', KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK), false));
+        edit.add(new MenuDetail("Select All", "selectall", 's', KeyStroke
+                .getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK), false));
         edit.add(new MenuDetail("Delete selected", "delete", 'd', null, true));
-        edit.add(new MenuDetail("Find/Replace...", "find", 'f', KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK), false));
+        edit.add(new MenuDetail("Find/Replace...", "find", 'f', KeyStroke
+                .getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK), false));
         for (MenuDetail m : edit) {
             mi = new JMenuItem(m.menuName, m.ac);
             mi.setAccelerator(m.keystroke);
@@ -151,7 +146,6 @@ public class sEditor extends JFrame
             }
         }
         menubar.add(menu);
-
         menu = new JMenu("Format");
         menu.setMnemonic('m');
         ArrayList<MenuDetail> format = new ArrayList<MenuDetail>();
@@ -168,32 +162,35 @@ public class sEditor extends JFrame
         }
         mi = new JCheckBoxMenuItem("Wrap Text", true);
         mi.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea().getLineWrap() == false) {
-                    textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea().setLineWrap(true);
+                if (textAreaContent.get(tabbedPane.getSelectedIndex())
+                        .getTextArea().getLineWrap() == false) {
+                    textAreaContent.get(tabbedPane.getSelectedIndex())
+                            .getTextArea().setLineWrap(true);
                 } else {
-                    textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea().setLineWrap(false);
+                    textAreaContent.get(tabbedPane.getSelectedIndex())
+                            .getTextArea().setLineWrap(false);
                 }
             }
         });
         menu.add(mi);
         mi = new JCheckBoxMenuItem("Show Line Number", true);
         mi.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textAreaContent.get(tabbedPane.getSelectedIndex()).getLineNumberBarArea().isVisible()) {
-                    textAreaContent.get(tabbedPane.getSelectedIndex()).getLineNumberBarArea().setVisible(false);
+                if (textAreaContent.get(tabbedPane.getSelectedIndex())
+                        .getLineNumberBarArea().isVisible()) {
+                    textAreaContent.get(tabbedPane.getSelectedIndex())
+                            .getLineNumberBarArea().setVisible(false);
                 } else {
-                    textAreaContent.get(tabbedPane.getSelectedIndex()).getLineNumberBarArea().setVisible(true);
+                    textAreaContent.get(tabbedPane.getSelectedIndex())
+                            .getLineNumberBarArea().setVisible(true);
                 }
             }
         });
         menu.add(mi);
         menubar.add(menu);
-
         menu = new JMenu("Help");
         menu.setMnemonic('h');
         ArrayList<MenuDetail> help = new ArrayList<MenuDetail>();
@@ -326,8 +323,8 @@ public class sEditor extends JFrame
             fileName = "File" + sessionCounter;
         }
         tabbedPane.add(fileName, dp);
-        tabbedPane.setTabComponentAt(openDocumentsCounter,
-                new CustomTabButton(tabbedPane, this));
+        tabbedPane.setTabComponentAt(openDocumentsCounter, new CustomTabButton(
+                tabbedPane, this));
         tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
         mainEditorPanel.add(tabbedPane);
         openDocumentsCounter++;
@@ -352,6 +349,7 @@ public class sEditor extends JFrame
                 }
                 lastOpenedDir = f.getPath();
                 createNewFile(f.getName(), lastOpenedDir, fileContent);
+                r.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error opening file!");
             }
@@ -384,7 +382,8 @@ public class sEditor extends JFrame
             try {
                 bufferedWriter = new BufferedWriter(new FileWriter(filePath,
                         false));
-                bufferedWriter.write(textAreaContent.get(selectedIndex).getTextArea().getText());
+                bufferedWriter.write(textAreaContent.get(selectedIndex)
+                        .getTextArea().getText());
                 textAreaContent.get(selectedIndex).setSavedStatus(true);
                 retVal = this.STATUS_OK;
             } catch (FileNotFoundException ex) {
@@ -452,9 +451,11 @@ public class sEditor extends JFrame
                     fileDir = chooser.getSelectedFile().getPath();
                     try {
                         FileWriter writer = new FileWriter(f);
-                        textAreaContent.get(selectedIndex).getTextArea().write(writer);
+                        textAreaContent.get(selectedIndex).getTextArea()
+                                .write(writer);
                         textAreaContent.get(selectedIndex).setSavedStatus(true);
-                        textAreaContent.get(selectedIndex).setFileName(fileName);
+                        textAreaContent.get(selectedIndex)
+                                .setFileName(fileName);
                         textAreaContent.get(selectedIndex).setFileDir(fileDir);
                         retnVal = this.STATUS_OK;
                         writer.close();
@@ -487,7 +488,8 @@ public class sEditor extends JFrame
         tabbedPane.setSelectedIndex(selectedIndex);
         int retVal = this.STATUS_ERROR;
         if (textAreaContent.get(selectedIndex).getSavedStatus() == false
-                && textAreaContent.get(selectedIndex).getTextArea().getText().length() != 0) {
+                && textAreaContent.get(selectedIndex).getTextArea().getText()
+                        .length() != 0) {
             int retvalue = JOptionPane.showConfirmDialog(this,
                     "File not Saved.\nSave now?");
             if (retvalue == JOptionPane.CANCEL_OPTION) {
@@ -605,7 +607,8 @@ public class sEditor extends JFrame
      * 
      **/
     private void paste() {
-        textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea().paste();
+        textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea()
+                .paste();
     }
 
     /**
@@ -613,9 +616,12 @@ public class sEditor extends JFrame
      * 
      **/
     private void delete() {
-        int s = textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea().getSelectionStart();
-        int e = textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea().getSelectionEnd();
-        textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea().replaceRange(null, s, e);
+        int s = textAreaContent.get(tabbedPane.getSelectedIndex())
+                .getTextArea().getSelectionStart();
+        int e = textAreaContent.get(tabbedPane.getSelectedIndex())
+                .getTextArea().getSelectionEnd();
+        textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea()
+                .replaceRange(null, s, e);
     }
 
     /**
@@ -623,8 +629,8 @@ public class sEditor extends JFrame
      * 
      **/
     private void selectAll() {
-        JTextArea t = textAreaContent.get(
-                tabbedPane.getSelectedIndex()).getTextArea();
+        JTextArea t = textAreaContent.get(tabbedPane.getSelectedIndex())
+                .getTextArea();
         t.selectAll();
     }
 
@@ -642,7 +648,8 @@ public class sEditor extends JFrame
      * 
      **/
     private void formatDialog() {
-        new FontChooser(this, textAreaContent.get(tabbedPane.getSelectedIndex()).getTextArea());
+        new FontChooser(this, textAreaContent
+                .get(tabbedPane.getSelectedIndex()).getTextArea());
     }
 
     private void showAbout() {
