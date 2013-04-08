@@ -34,12 +34,11 @@ Project contents:
 
 -> eEditor.jar: the executable project file
  
- The text editor can be run from the command-line by executing:
+The text editor can be run from the command-line by executing:
      `java -jar sEditor.jar`,
- provided java is present in the system path. Else full path to java executable has to be given
- 
- 
- License
- -------
- GNU GPLv3
+provided java is present in the system path. Else full path to java executable has to be given
+
+License
+--------
+GNU GPLv3
  
